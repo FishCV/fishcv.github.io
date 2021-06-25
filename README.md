@@ -5,10 +5,22 @@
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
 
-The aim of this research was to develop a method for determining pineapple fruit size from images. This was achieved by first detecting pineapples in each image using the [matterport implementation](https://github.com/matterport/Mask_RCNN) of Mask Region-based Convolutional Neural Network ([Mask R-CNN](https://arxiv.org/abs/1703.06870)) and a generic object tracking ([HERE](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/)) then extracting the pixel diameter and length measurements, and the projected areas, from the detected mask outputs using OpenCV.
+Still used today, the most widely used method of analysis for marine ecological data
+is manual review by trained human experts. The majority of analysis of this data is
+concerned with extracting information on the abundance, distribution and behaviour
+of the studied marine organism(s). This task can be broken down into four sub-tasks,
+frequently performed on a target species: (i) locate, (ii) identify, (iii) count, and (iv)
+track. This research proposes an object detection and tracking algorithm for red roman (_Chrysoblephus laticeps_) in Cape Town, South Africa. The model is capable of automating all four sub-tasks above, at a test accuracy of mAP<sub>50</sub> = 81.45% on previously unseen footage. This research serves as a proof-of-concept that machine learning based methods of video analysis of marine data can replace or at least supplement human analysis.
+
+[Mask R-CNN](https://arxiv.org/abs/1703.06870)
+[matterport](https://github.com/matterport/Mask_RCNN)
+[centroid object tracking](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/)
+
+
 
 [![Red Roman Object Tracking](assets/roman_tracking_sample.gif)](https://www.youtube.com/watch?v=28aIeKxBsrY)
 
-## Overview
+## Background
 
-The availability of relatively cheap, high-resolution digital cameras has led to an exponential increase in the capture of natural environments and their inhabitants. Video-based surveys are particularly useful in the underwater domain where observation by humans can be expensive, dangerous, inaccessible, or destructive to the natural environment. Moreover, video-based surveys offer an unedited record of biodiversity at a given point in time - one that is not reliant on human recall or susceptible to observer bias. In addition, secondary data that is useful in scientific study (date, time, location, etc.) are by default stored in almost all digital formats as metadata. When analysed effectively, this growing body of digital data offers the opportunity for robust and independently reproducible scientific study of marine biodiversity (and how this might change over time, for example). However, the manual review of image and video data by humans is slow, expensive, and not scalable. A large majority of marine data has never gone through analysis by human experts. This necessitates computer-based (or automated) methods of analysis that can be deployed at a fraction of the time and cost, at a comparable accuracy. Mask R-CNN, a deep learning object recognition framework, has outperformed all previous state-of-the-art results on competitive benchmarking tasks. Despite this success, Mask R-CNN and other state-of-the-art object recognition techniques have not been widely applied in the underwater domain, and not at all within the context of South Africa. To address this gap in the literature, this thesis contributes (i) a novel image dataset of red roman (_Chrysoblephus laticeps_), a fish species endemic to South Africa, and (ii) a Mask R-CNN framework for the automated localisation, classification, counting, and tracking of red roman in unconstrained underwater environments. The model, trained on an 80:10:10 split, accurately detected and classified red roman on the training dataset (mAP<sub>50</sub> = 80.29%), validation dataset (mAP<sub>50</sub> = 80.35%), as well as on previously unseen footage (test dataset) (mAP<sub>50</sub> = 81.45%). The fact that the model performs equally well on unseen footage suggests that it is capable of generalising on new streams of data not used in this research - this is critical for the utility of any statistical model outside of "laboratory conditions". This research serves as a proof-of-concept that machine learning based methods of video analysis of marine data can replace or at least supplement human analysis.
+  This repository 
+
