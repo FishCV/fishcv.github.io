@@ -16,21 +16,14 @@ track. **This research proposes an object detection and tracking algorithm for r
 
 ## Installation
 
-The red roman model relies on the [matterport](https://github.com/matterport/Mask_RCNN) implementation of [Mask R-CNN](https://arxiv.org/abs/1703.06870). The model combines the matterport library with a generic [centroid object tracking](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/) method.
+The red roman model relies on the [matterport implementation](https://github.com/matterport/Mask_RCNN) of [Mask R-CNN](https://arxiv.org/abs/1703.06870) - **requires "installation"**. The model combines the matterport library with a generic [centroid object tracking](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/) method - **does not require installation**.
 
 1. Clone the [Matterport Mask R-CNN repository](https://github.com/matterport/Mask_RCNN) and follow the installation instructions. You may be required to install additional software.
-2. Download the red roman dataset splits `train`, `test` and `val`, available in this respository [here](https://github.com/FishCV/fishcv.github.io/tree/main/dataset/via). These datasets should be placed in the path: `../Mask_RCNN/datasets/redroman/`. (This will be inside the local matterport directory you create in step 1.)
-3. For inference, download `mask_rcnn_redroman.h5` from [here](https://drive.google.com/drive/folders/1OQQOM0r_9_lTYDCh-D4nksKNZFarVFyL?usp=sharing). (The weights file is too large to be shared on this repository.)
+2. Download the red roman dataset splits `train`, `test` and `val`, available in this respository [here](https://github.com/FishCV/fishcv.github.io/tree/main/dataset/via). These datasets should be placed in the path: `../Mask_RCNN/datasets/redroman/`. (This will be inside the local matterport directory you've created in 1.)
+3. For inference, download `mask_rcnn_redroman.h5` from [here](https://drive.google.com/drive/folders/1OQQOM0r_9_lTYDCh-D4nksKNZFarVFyL?usp=sharing).
+4. Download `redroman.py` (for training and inference) and `mAP.ipynb` (for model evaluation) from [here](https://github.com/FishCV/fishcv.github.io/tree/main/model). These should be placed in the path: `../Mask_RCNN/samples/redroman/`
 
-## Datasets
-
-More information is given in the `README` in the [`data`](https://github.com/Jess-cah/measure-pineapple/tree/main/data) folder. 
-
-* `datasets/pineapple160` is used for training of pineapple detector
-* `datasets/fruitsizeA`, `datasets/fruitsizeB` and `datasets/fruitsizeAB` are used for evaluation of the size determination approach, as they contain images that had not previously been seen by the model (i.e. had not been used in the training or validation of the Mask R-CNN). The pineapples in these images had been manually measured using callipers prior to image acquisition. 
-* [`measured_sizes.xlsx`](https://github.com/Jess-cah/measure-pineapple/tree/main/data) contains the manual measurements.
-
-## Training a Mask R-CNN pineapple detector
+## Training
 * The [`detector`](https://github.com/Jess-cah/measure-pineapple/tree/main/detector) folder contains files related to training and evaluation of Mask R-CNN pineapple detectors. 
 * Colab notebook `maskpine_160images_coco_resnet50_aug4_ALL_01.ipynb` shows training of Mask R-CNN using COCO starting weights and ResNet50 backbone, and employing data augmentation techniques. Colab was used in order to make use of GPU facilities.
 * Use `init_with = "coco"` to initialise with MS COCO starting weights. Can also use `"imagenet"` to initialise with ImageNet starting weights.
@@ -38,7 +31,7 @@ More information is given in the `README` in the [`data`](https://github.com/Jes
 * The dataset `datasets/pineapple160` contains 160 images but these are split as 70/20/10 for training/validation/test.
 * Detectors are evaluated using AP@0.5 and AP@[0.50:0.05:0.95], as shown in `inspect_model_maskRCNN.ipynb`.
 
-## Detect and measure pineapples in images
+## Inference
 * The [`measurement`](https://github.com/Jess-cah/measure-pineapple/tree/main/measurement) folder contains files related to determining pineapple fruit size from images. 
 * Detection and measurement of pineapples from images was done using Juypter notebooks on a local machine, in a conda environment that can be replicated using `pineappleEnvironmment.yml`.
 * The `predict_measure_04_batch_noAnnot.ipynb` Jupyter notebook is used for extraction of pineapple diameter and length dimensions from the detected masks.
