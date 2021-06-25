@@ -5,6 +5,8 @@
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-shield]: https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg
 
+The aim of this research was to develop a method for determining pineapple fruit size from images. This was achieved by first detecting pineapples in each image using the [matterport implementation](https://github.com/matterport/Mask_RCNN) of Mask Region-based Convolutional Neural Network ([Mask R-CNN](https://arxiv.org/abs/1703.06870)) and a generic object tracking ([HERE](https://www.pyimagesearch.com/2018/07/23/simple-object-tracking-with-opencv/)) then extracting the pixel diameter and length measurements, and the projected areas, from the detected mask outputs using OpenCV.
+
 [![Red Roman Object Tracking](assets/roman_tracking_sample.gif)](https://www.youtube.com/watch?v=28aIeKxBsrY)
 
 ## Overview
