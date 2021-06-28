@@ -54,24 +54,24 @@ v1.004.3
 
 # --- TRAIN ---
 # [i.] Train a new model starting from pre-trained COCO weights
-# python fish.py train --dataset=\path\to\fish\dataset --weights=coco
-# e.g. python fish.py train --dataset=C:\Users\chris\Desktop\fish1 --weights=coco --logs E:\logs
-# e.g. python fish.py train --dataset=..\..\datasets\fish\fish2A --weights=coco --logs E:\logs
+# python fish.py train --dataset=\path\to\fish\dataset --weights=coco (or \path\to\weights\file) --logs \path\to\save\logs
+# e.g. python fish.py train --dataset=..\..\datasets\redroman\ --weights=coco
 
 # [ii.] Resume training a model from previous weights
 # python fish.py train --dataset=\path\to\fish\dataset --weights=last
-# e.g. python fish.py train --dataset=C:\Users\chris\Desktop\fish1 --weights=E:\logs\fish20201231T1053\mask_rcnn_fish_0003.h5 --logs E:\logs\fish20201231T1053
+# e.g. python fish.py train --dataset=..\..\datasets\redroman\ --weights=last
+# e.g. python fish.py train --dataset=..\..\datasets\redroman\ --weights=..\..\weights\redroman\mask_rcnn_redroman.h5
+
 
 # --- DETECT ---
 # [i.]  Detection (bbox, mask, centroid) - *IMAGE* (folder)
-# python fish.py detect --weights=C:\Users\Chris\Desktop\offline\maskrcnn-3\Mask_RCNN\logs\fish\mask_rcnn_fish_0025.h5 --image=C:\Users\Chris\Desktop\offline\maskrcnn-3\Mask_RCNN\datasets\fish\sample\
+# python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --image=..\..\datasets\inference\redroman\images
 
 # [ii.] Detection (bbox, mask, centroid) - *VIDEO*
-# python fish.py detect --weights=C:\Users\Chris\Desktop\offline\maskrcnn-3\Mask_RCNN\logs\fish\mask_rcnn_fish_0025.h5 --video=C:\Users\Chris\Desktop\offline\maskrcnn-3\Mask_RCNN\datasets\fish\video\test_min_5s.MP4
+# python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4
 
 # [ii.] Detection (bbox, mask, centroid) - *VIDEO* (with centroid tracking)
-# python fish.py detect --weights=C:\Users\Chris\Desktop\offline\maskrcnn-3\Mask_RCNN\_weights\mask_rcnn_fish_0047.h5 --video=C:\Users\Chris\Dropbox\__SYNC__\1_results\test_min_28s.MP4 --tracking Y
-
+# python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y
 
 
 _VERSION = "v1.008.0"
