@@ -21,25 +21,59 @@ The red roman model relies on the [matterport implementation](https://github.com
 ## Training
 
 1. Train a new model starting from pre-trained COCO weights  
-`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=coco`  
+```
+python redroman.py train --dataset=..\..\datasets\redroman\ --weights=coco
+```
 
 2. Resume training a model from last trained weights (or select specific weights file)  
-`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=last`  
-or  
-`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=..\..\weights\redroman\mask_rcnn_redroman.h5`  
-
+```
+redroman.py train --dataset=..\..\datasets\redroman\ --weights=last
+```
+or
+``` 
+python redroman.py train --dataset=..\..\datasets\redroman\ --weights=..\..\weights\redroman\mask_rcnn_redroman.h5
+```
 
 ## Inference
 
-1.  **(Image)** Detection (bbox, mask, centroid)  
-`python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --image=..\..\datasets\inference\redroman\images`  
+1.  **(Image)** Detection (bbox, mask, centroid)
+```
+python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --image=..\..\datasets\inference\redroman\images
+```
 (Note: Inference is performed on a folder of images. If you'd like to run the model on a single image, make a separate folder containing this single image.)  
 
-2. **(Video)** Detection (bbox, mask, centroid)  
-`python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4`  
+2. **(Video)** Detection (bbox, mask, centroid)
+```
+python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4
+```
 
 3. **(Video with centroid tracking)** Detection (bbox, mask, centroid)
 ```
 python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y
 ```
-`python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y`  
+
+## Model Parameters
+
+```python
+class FishConfig(Config):
+    """
+    Configuration for training on your own dataset (red roman dataset).
+    Derives from the base Config class and overrides some values.
+    """
+
+    # [1]
+    BACKBONE = "resnet50"
+
+    # [2]
+    IMAGE_MIN_DIM = 460; IMAGE_MAX_DIM = 576
+
+    # [3]
+    GPU_COUNT = 1; IMAGES_PER_GPU = 1
+
+    # [4]
+    TRAIN_ROIS_PER_IMAGE = 100
+    STEPS_PER_EPOCH = 300
+    VALIDATION_STEPS = 100
+    MAX_GT_INSTANCES = 10
+    
+```
