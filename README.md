@@ -54,7 +54,7 @@ python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5
 
 ## Model Parameters
 
-There are a number of model parameters that can be tuned during training (see below for some examples). Please see the [Matterport Wiki](https://github.com/matterport/Mask_RCNN/wiki) on help on this.
+There are a number of model parameters that can be tuned during training (see below for some examples). Please see the [Matterport Wiki](https://github.com/matterport/Mask_RCNN/wiki) for help on this.
 
 ```python
 class FishConfig(Config):
@@ -84,12 +84,12 @@ You can also override some parameters that will apply only when the model is set
 
 ```python
 class FishInferenceConfig(FishConfig):
-	"""
+    """
     Configuration for inference on test data (red roman dataset).
     Derives from the FishConfig class (and by extension, Base Config class) and overrides some values.
     """
     
-    # You can increase this during training to generate more propsals.
+    # [1] e.g. You can increase this during training to generate more propsals.
     RPN_NMS_THRESHOLD = 0.7    
 ```
 
