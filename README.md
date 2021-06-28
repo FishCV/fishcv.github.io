@@ -38,5 +38,8 @@ or
 2. **(Video)** Detection (bbox, mask, centroid)  
 `python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4`  
 
-3. **(Video with centroid tracking)** Detection (bbox, mask, centroid)  
+3. **(Video with centroid tracking)** Detection (bbox, mask, centroid)
+```
+python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y
+```
 `python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y`  
