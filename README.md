@@ -21,22 +21,22 @@ The red roman model relies on the [matterport implementation](https://github.com
 ## Training
 
 1. Train a new model starting from pre-trained COCO weights  
-`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=coco`
+`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=coco`  
 
 2. Resume training a model from last trained weights (or select specific weights file)  
-`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=last`
+`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=last`  
 or  
-`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=..\..\weights\redroman\mask_rcnn_redroman.h5`
+`python redroman.py train --dataset=..\..\datasets\redroman\ --weights=..\..\weights\redroman\mask_rcnn_redroman.h5`  
 
 
 ## Inference
 
 1.  **(Image)** Detection (bbox, mask, centroid)  
-`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --image=..\..\datasets\inference\redroman\images`
-(Note: Inference is performed on a folder of images. If you'd like to run the model on a single image, make a separate folder containing this single image.)
+`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --image=..\..\datasets\inference\redroman\images`  
+(Note: Inference is performed on a folder of images. If you'd like to run the model on a single image, make a separate folder containing this single image.)  
 
 2. **(Video)** Detection (bbox, mask, centroid)  
-`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4`
+`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4`  
 
 3. **(Video with centroid tracking)** Detection (bbox, mask, centroid)  
-`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y`
+`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y`  
