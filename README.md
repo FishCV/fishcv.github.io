@@ -32,11 +32,11 @@ or
 ## Inference
 
 1.  **(Image)** Detection (bbox, mask, centroid)  
-`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --image=..\..\datasets\inference\redroman\images`  
+`python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --image=..\..\datasets\inference\redroman\images`  
 (Note: Inference is performed on a folder of images. If you'd like to run the model on a single image, make a separate folder containing this single image.)  
 
 2. **(Video)** Detection (bbox, mask, centroid)  
-`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4`  
+`python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4`  
 
 3. **(Video with centroid tracking)** Detection (bbox, mask, centroid)  
-`python fish.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y`  
+`python redroman.py detect --weights=..\..\weights\redroman\mask_rcnn_redroman.h5 --video=--image=..\..\datasets\inference\redroman\video\sample_video.MP4 --tracking Y`  
