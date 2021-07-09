@@ -46,7 +46,7 @@ v1.004.3
 - Changed augmentation sequence
 
 [8] v1.008.0 
-- Object tracking on video now produces a .csv file of tracked objects.
+- Object tracking on video shows max count of detected objects within frame.
 
 """
 
@@ -231,23 +231,6 @@ class FishDataset(utils.Dataset):
         assert subset in ["train", "val", "test"] # v1.007.0
         dataset_dir = os.path.join(dataset_dir, subset)
 
-        # Load annotations
-        # VGG Image Annotator (up to version 1.6) saves each image in the form:
-        # { 'filename': '28503151_5b5b7ec140_b.jpg',
-        #   'regions': {
-        #       '0': {
-        #           'region_attributes': {},
-        #           'shape_attributes': {
-        #               'all_points_x': [...],
-        #               'all_points_y': [...],
-        #               'name': 'polygon'}},
-        #       ... more regions ...
-        #   },
-        #   'size': 100202
-        # }
-        # We mostly care about the x and y coordinates of each region
-        # Note: In VIA 2.0, regions was changed from a dict to a list.
-
         annotations = json.load(open(os.path.join(dataset_dir, "0_via_region_data.json"))) # <--- v1.0.005
         # annotations = json.load(open(os.path.join(dataset_dir, "via_region_data.json"))) 
         annotations = list(annotations.values())  # don't need the dict keys
@@ -350,41 +333,26 @@ def train(model):
     # v1.005 --->
     # *** This training schedule is an example. Update to your needs ***
     # SEARCH: QLAYERS
-    # If starting from imagenet, train heads only for a bit
-    # since they have random weights
+    # Training is set to network head only
+    # Unblock code for full network if GPU > 6GB
 
-    # print("...training model...(heads)")
+    # print("...training model...(all)")
     # model.train(dataset_train, dataset_val,
     #             learning_rate=config.LEARNING_RATE,
-    #             epochs=2,
+    #             epochs=30,
     #             augmentation=augmentation,
-    #             layers='heads')
+    #             layers='all')
 
-    print("...training model...(all)")
+    print("...training model...(heads)")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=1,
+                epochs=30,
                 augmentation=augmentation,
                 layers='heads')
     # <--- v1.0.005
 
 
 # v1.004 --->
-
-# v1.004.1 --->
-# def format_mask(mask):
-#     padded_mask = np.zeros(
-#         (mask.shape[0] + 2, mask.shape[1] + 2), dtype=np.uint8)
-#     padded_mask[1:-1, 1:-1] = mask
-#     contours = find_contours(padded_mask, 0.5)
-#     verts = contours[-1]
-#     # Subtract the padding and flip (y, x) to (x, y)
-#     verts = np.fliplr(verts) - 1
-#     # Additional formatting for open-cv
-#     verts = verts.astype(np.int32)
-#     verts = verts.reshape((-1,1,2))
-#     return verts
-# v1.004.1 <---
 
 # v1.004.1 --->
 def apply_cv_masks(image, overlay, mask, color=(0, 0, 255)):
@@ -464,11 +432,9 @@ def detect(model, image_path=None, video_path=None):
     # Image or video?
     # [1] --- image ---
     if image_path:
-        # Run model detection and generate the color splash effect
+        # Run model inference
         print("Running on {}".format(args.image))
-        # Read image
-
-        # accept folder (i.e. more than 1 image file)
+        # Read images, accept folder (i.e. more than 1 image file)
         dataset_path = args.image
         images = os.listdir(dataset_path)
         images = [os.path.join(dataset_path, img) for img in images if img.split(".")[1] == "jpg"]
@@ -498,10 +464,6 @@ def detect(model, image_path=None, video_path=None):
 
         # v1.004 --->
         # Define codec and create video writer
-        # file_name = "tracked_{:%Y%m%dT%H%M%S}.avi".format(datetime.datetime.now())
-        # vwriter = cv2.VideoWriter(file_name,
-        #                           cv2.VideoWriter_fourcc(*'MJPG'),
-        #                           fps, (width, height))
         file_name = "tracked_{:%Y%m%dT%H%M%S}.mp4".format(datetime.datetime.now())
         vwriter = cv2.VideoWriter(file_name,
                                   cv2.VideoWriter_fourcc(*'mp4v'),
@@ -598,7 +560,7 @@ if __name__ == '__main__':
         description='Train Mask R-CNN to detect target fish species.')
     parser.add_argument("command",
                         metavar="<command>",
-                        help="'train' or 'splash' or 'detect'")
+                        help="'train' or 'detect'")
     parser.add_argument('--dataset', required=False,
                         metavar="/path/to/fish/dataset/",
                         help='Directory of the Fish dataset')
@@ -611,10 +573,10 @@ if __name__ == '__main__':
                         help='Logs and checkpoints directory (default=logs/)')
     parser.add_argument('--image', required=False,
                         metavar="path or URL to image",
-                        help='Image directory to apply color splash/ detection') # v1.003
+                        help='Image directory to apply inference') # v1.003
     parser.add_argument('--video', required=False,
                         metavar="path or URL to video",
-                        help='Video file to apply color splash/ detection') # v1.003
+                        help='Video file to apply inference') # v1.003
     parser.add_argument('--tracking', required=False,
                         metavar="include object tracking (Y/N)",
                         help='Y/N') # v1.004.3
@@ -682,9 +644,6 @@ if __name__ == '__main__':
     # Train or evaluate
     if args.command == "train":
         train(model)
-    elif args.command == "splash":
-        detect_and_color_splash(model, image_path=args.image,
-                                video_path=args.video)
     # v1.001 --->
     elif args.command == "detect":
         detect(model, image_path=args.image,
